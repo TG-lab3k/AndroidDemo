@@ -1,0 +1,31 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+<<<<<<< HEAD
+build/
+=======
+>>>>>>> f2e9da989171c92ddd9a18c65a672ee416c475de
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+<<<<<<< HEAD
+.settings
+
+# Mac
+.DS_Store
+=======
+>>>>>>> f2e9da989171c92ddd9a18c65a672ee416c475de
