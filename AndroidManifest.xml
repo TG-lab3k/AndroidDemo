@@ -22,6 +22,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <activity 
+            android:name="com.example.demo.activity.TestServiceActivity"/>
+        
+        <service 
+            android:name="com.example.demo.service.RemoteService"
+            android:process=":remote"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="call_back_remote_service"/>
+            </intent-filter>
+        </service>
+        
     </application>
 
 </manifest>
