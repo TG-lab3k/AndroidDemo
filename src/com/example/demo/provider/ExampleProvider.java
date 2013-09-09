@@ -17,7 +17,9 @@ public class ExampleProvider extends ContentProvider {
 
 	@Override
 	public String getType(Uri mUri) {
-		// TODO Auto-generated method stub
+		synchronized (this) {
+			
+		}
 		return null;
 	}
 
