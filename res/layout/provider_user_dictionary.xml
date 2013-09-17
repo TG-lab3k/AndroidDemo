@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <Button
+        android:id="@+id/provider_user_dict_select_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="@string/provider_user_dictionary_query" />
+
+    <ListView
+        android:id="@+id/provider_user_dict_content_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/provider_user_dict_select_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" >
+    </ListView>
+
+</RelativeLayout>

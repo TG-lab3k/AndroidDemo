@@ -11,5 +11,7 @@ public class ProviderActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		ContentResolver mContentResolver = this.getContentResolver();
+		
+		this.getLayoutInflater();
 	}
 }
