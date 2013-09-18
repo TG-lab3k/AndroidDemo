@@ -4,8 +4,6 @@
     <string name="app_name">AndroidDemo</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    
-    <string name=""></string>
 
     <string name="provider_user_dictionary_query">select User Dictionary</string>
 </resources>
