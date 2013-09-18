@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -14,12 +13,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.demo.BasicActivity;
 import com.example.demo.R;
 import com.example.demo.service.aidl.IRemoteService;
 import com.example.demo.service.aidl.IRemoteServiceCallback;
 import com.example.demo.service.aidl.Result;
 
-public class TestServiceActivity extends Activity {
+public class TestServiceActivity extends BasicActivity {
 	
 	private TextView mRemoteServiceTxtv;
 	

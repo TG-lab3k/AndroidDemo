@@ -1,10 +1,11 @@
 package com.example.demo.provider;
 
-import android.app.Activity;
+import com.example.demo.BasicActivity;
+
 import android.content.ContentResolver;
 import android.os.Bundle;
 
-public class ProviderActivity extends Activity {
+public class ProviderActivity extends BasicActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

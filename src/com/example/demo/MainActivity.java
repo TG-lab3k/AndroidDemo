@@ -2,7 +2,6 @@ package com.example.demo;
 
 import com.example.demo.service.TestServiceActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BasicActivity {
 	public static class RequestCode{
 		public static final int MAIN_2_TEST_SERVICE = 0x1001;
 	}
