@@ -1,8 +1,8 @@
 package com.example.demo;
 
-import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 
-public class BasicActivity extends Activity {
+public class BasicActivity extends FragmentActivity {
 
 	
 }

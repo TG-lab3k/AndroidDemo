@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.UserDictionary;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,18 +23,23 @@ import com.example.demo.provider.UserDictionaryCursorAdapter;
  *
  */
 public class UserDictionaryFragment extends Fragment {
+	private static final String TAG = UserDictionaryFragment.class.getName();
+	
 	ListView content;
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		
+		Log.d(TAG, "@onActivityCreated __");
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+		Log.d(TAG, "@onCreateView begin ..");
 		//return super.onCreateView(inflater, container, savedInstanceState);
 		
-		View contentView = inflater.inflate(R.layout.provider_user_dictionary, container);
+		View contentView = inflater.inflate(R.layout.provider_user_dictionary, null);
 		
 		Button selectButton = (Button) contentView.findViewById(R.id.provider_user_dict_select_btn);
 		selectButton.setOnClickListener(sctBtnOnClickListener);
@@ -55,8 +61,9 @@ public class UserDictionaryFragment extends Fragment {
 			};
 			
 			String mSelectionClause = null;
-			String[] mSelectionArgs = {""};
-			Cursor mCursor = resolver.query(UserDictionary.Words.CONTENT_URI, mProjection, mSelectionClause, mSelectionArgs, null);
+			String[] mSelectionArgs = null;
+			String sortOrder = null;
+			Cursor mCursor = resolver.query(UserDictionary.Words.CONTENT_URI, mProjection, mSelectionClause, mSelectionArgs, sortOrder);
 			UserDictionaryCursorAdapter mCursorAdapter = new UserDictionaryCursorAdapter(getActivity().getApplicationContext(), mCursor, false);
 			content.setAdapter(mCursorAdapter);
 		}

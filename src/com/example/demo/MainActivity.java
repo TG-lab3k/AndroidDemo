@@ -1,18 +1,27 @@
 package com.example.demo;
 
-import com.example.demo.service.TestServiceActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+
+import com.example.demo.NavigationAdapter.AdapterContent;
+import com.example.demo.provider.ProviderPortalActivity;
+import com.example.demo.service.ServicePortalActivity;
 
 public class MainActivity extends BasicActivity {
 	public static class RequestCode{
-		public static final int MAIN_2_TEST_SERVICE = 0x1001;
+		public static final int MAIN_2_TEST_SERVICE				= 0x1001;
+		public static final int MAIN_2_PORTAL_ACTIVITY			= 0x1002;
 	}
+	
+	private static final AdapterContent [] ARRAY_NAVIGATION = {
+			AdapterContent.trans(1002L,R.drawable.ic_launcher, "Service", ServicePortalActivity.class),
+			AdapterContent.trans(1003L,R.drawable.ic_launcher, "Provider", ProviderPortalActivity.class),
+	};
 	
 
 	@Override
@@ -20,8 +29,9 @@ public class MainActivity extends BasicActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Button mTestServiceBtn = (Button)this.findViewById(R.id.test_service_btn);
-		mTestServiceBtn.setOnClickListener(mTestServiceListener);
+		ListView navigationListView = (ListView)this.findViewById(R.id.main_navigation_lstv);
+		navigationListView.setOnItemClickListener(mNavigationOnItemClickListener);
+		navigationListView.setAdapter(new NavigationAdapter(getApplicationContext(),ARRAY_NAVIGATION));
 	}
 
 	@Override
@@ -44,10 +54,11 @@ public class MainActivity extends BasicActivity {
 		}
 	}
 	
-	private OnClickListener mTestServiceListener = new OnClickListener(){
+	private OnItemClickListener mNavigationOnItemClickListener = new OnItemClickListener(){
 		@Override
-		public void onClick(View v) {
-			MainActivity.this.startActivityForResult(new Intent(MainActivity.this,TestServiceActivity.class), RequestCode.MAIN_2_TEST_SERVICE);
+		public void onItemClick(AdapterView<?> parent, View item, int position,long id) {
+			AdapterContent adaContent = (AdapterContent)parent.getItemAtPosition(position);
+			startActivityForResult(new Intent(MainActivity.this.getApplicationContext(), adaContent.clazz), RequestCode.MAIN_2_PORTAL_ACTIVITY);
 		}
 	};
 }
