@@ -32,6 +32,7 @@ public class UserDictionaryCursorAdapter extends CursorAdapter {
 	public void bindView(View mView, Context mContext, Cursor mCursor) {
 		TextView mTextView = (TextView)mView.getTag();
 		StringBuilder content = new StringBuilder();
+		/*
 		if(mCursor.moveToNext()){
 			content.append(" _ID:").append(mCursor.getString(0));
 			content.append(" WORD:").append(mCursor.getString(1));
@@ -39,6 +40,11 @@ public class UserDictionaryCursorAdapter extends CursorAdapter {
 		}else{
 			content.append("no data");
 		}
+		*/
+		content.append(" _ID:").append(mCursor.getString(0));
+		content.append(" WORD:").append(mCursor.getString(1));
+		content.append(" LOCALE:").append(mCursor.getString(2));
+		
 		mTextView.setText(content.toString());
 	}
 
@@ -53,6 +59,7 @@ public class UserDictionaryCursorAdapter extends CursorAdapter {
 		//provider_user_dictionary_item_txtv
 		TextView textView = (TextView)mItem.findViewById(R.id.provider_user_dictionary_item_txtv);
 		StringBuilder content = new StringBuilder();
+		/*
 		if(mCursor.moveToNext()){
 			content.append(" _ID:").append(mCursor.getString(0));
 			content.append(" WORD:").append(mCursor.getString(1));
@@ -60,6 +67,11 @@ public class UserDictionaryCursorAdapter extends CursorAdapter {
 		}else{
 			content.append("no data");
 		}
+		*/
+		content.append(" _ID:").append(mCursor.getString(0));
+		content.append(" WORD:").append(mCursor.getString(1));
+		content.append(" LOCALE:").append(mCursor.getString(2));
+		
 		textView.setText(content.toString());
 		mItem.setTag(textView);
 		return mItem;

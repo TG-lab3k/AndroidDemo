@@ -1,5 +1,6 @@
 package com.example.demo.provider.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.demo.R;
 import com.example.demo.provider.UserDictionaryCursorAdapter;
@@ -45,11 +47,15 @@ public class UserDictionaryFragment extends Fragment {
 		selectButton.setOnClickListener(sctBtnOnClickListener);
 		
 		content = (ListView) contentView.findViewById(R.id.provider_user_dict_content_listview);
+		
+		Button toContactsBtn = (Button) contentView.findViewById(R.id.provider_to_contacts_btn);
+		toContactsBtn.setOnClickListener(toContactsOnClickListener);
 		return contentView;
 	}
 	
 	private OnClickListener sctBtnOnClickListener = new OnClickListener(){
 		
+		@SuppressLint("ShowToast")
 		@Override
 		public void onClick(View v) {
 			ContentResolver resolver = getActivity().getContentResolver();
@@ -64,10 +70,24 @@ public class UserDictionaryFragment extends Fragment {
 			String[] mSelectionArgs = null;
 			String sortOrder = null;
 			Cursor mCursor = resolver.query(UserDictionary.Words.CONTENT_URI, mProjection, mSelectionClause, mSelectionArgs, sortOrder);
-			UserDictionaryCursorAdapter mCursorAdapter = new UserDictionaryCursorAdapter(getActivity().getApplicationContext(), mCursor, false);
-			content.setAdapter(mCursorAdapter);
+			if(null == mCursor){
+				Toast.makeText(getActivity(), "The cursor is null", Toast.LENGTH_LONG);
+			}else if(0 == mCursor.getCount()){
+				Toast.makeText(getActivity(), "The cursor count is 0", Toast.LENGTH_LONG);
+			}else{
+				Log.i(TAG, "The cursor count is:" + mCursor.getCount());
+				Toast.makeText(getActivity(), "The cursor count is:" + mCursor.getCount(), Toast.LENGTH_LONG);
+				UserDictionaryCursorAdapter mCursorAdapter = new UserDictionaryCursorAdapter(getActivity().getApplicationContext(), mCursor, false);
+				content.setAdapter(mCursorAdapter);
+			}
 		}
 	};
 	
-	
+	private OnClickListener toContactsOnClickListener = new OnClickListener(){
+
+		@Override
+		public void onClick(View v) {
+			
+		}
+	};
 }

@@ -17,8 +17,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/provider_user_dict_select_btn"
+        android:layout_above="@+id/provider_to_contacts_btn"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp" >
+        android:layout_marginTop="35dp"
+        android:background="#f00" >
     </ListView>
+
+    <Button
+        android:id="@+id/provider_to_contacts_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="32dp"
+        android:text="@string/provider_to_contacts_query" />
 
 </RelativeLayout>

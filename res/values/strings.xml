@@ -6,4 +6,5 @@
     <string name="hello_world">Android demo by tony lei</string>
 
     <string name="provider_user_dictionary_query">select User Dictionary</string>
+    <string name="provider_to_contacts_query">To contacts</string>
 </resources>

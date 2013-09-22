@@ -47,11 +47,13 @@
         </service>
         
         <!-- provider -->
-        <!-- 
-        <provider android:name="com.example.demo.provider.ExampleProvider">
-            
+        <provider android:name="com.example.demo.provider.MyStructuredProvider" 
+            android:authorities="com.example.demo.provider.structuredProvider">      
         </provider>
-         -->
+        
+        <provider android:name="com.example.demo.provider.MyMediaProvider" 
+            android:authorities="com.example.demo.provider.MyMediaProvider">      
+        </provider>
         
     </application>
 
