@@ -36,6 +36,8 @@
         <activity android:name="com.example.demo.provider.ProviderPortalActivity">
         </activity>
         
+        <activity android:name="com.example.demo.adapterview.AdapterViewPortalActivity"/>
+        
         <!-- service -->
         <service 
             android:name="com.example.demo.service.RemoteService"
@@ -48,11 +50,14 @@
         
         <!-- provider -->
         <provider android:name="com.example.demo.provider.MyStructuredProvider" 
-            android:authorities="com.example.demo.provider.structuredProvider">      
+            android:authorities="com.example.demo.provider.structuredProvider"
+            android:exported="true">   
+               
         </provider>
         
         <provider android:name="com.example.demo.provider.MyMediaProvider" 
-            android:authorities="com.example.demo.provider.MyMediaProvider">      
+            android:authorities="com.example.demo.provider.mediaProvider"
+            android:exported="true">      
         </provider>
         
     </application>

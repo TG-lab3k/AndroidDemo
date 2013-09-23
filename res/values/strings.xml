@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <string name="app_name">AndroidDemo</string>
     <string name="action_settings">Settings</string>
@@ -7,4 +7,10 @@
 
     <string name="provider_user_dictionary_query">select User Dictionary</string>
     <string name="provider_to_contacts_query">To contacts</string>
+    
+    <string-array name="provider_portal_navigation">
+        <item name="1001">select page</item>
+        <item name="1002">to custom structured provider</item>
+        <item name="1003">to user dictinoary provider</item>
+    </string-array>
 </resources>

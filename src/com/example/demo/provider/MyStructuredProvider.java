@@ -1,21 +1,28 @@
 package com.example.demo.provider;
 
+import java.util.Date;
+
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 
 /**
- * 结构化数据ContentProvider，使用Sqlite数据库保存数据
+ * 结构化数据ContentProvider，使用Sqlite数据库保存数据,给第三方应用提供数据
  * 
  * @author tony.lei
  *
  */
 public class MyStructuredProvider extends ContentProvider {
+	private static final String TAG = MyStructuredProvider.class.getName();
+	
 	//URI ID
 	private static final int MEDIA = 0x101;
 	private static final int MEDIA_ID = 0x102;
@@ -43,14 +50,9 @@ public class MyStructuredProvider extends ContentProvider {
 		static final String PATH = "path";
 		static final String NAME = "name";
 		static final String CREATE_DATE = "create_at";
-		static final String IS_ROOT = "is_root";
-		static final String IS_DIR = "is_dir";
 		static final String FILE_SIZE = "file_size";
 		static final String EXT_TYPE = "ext_type";
-		static final String MIME_TYPE = "mime_type";
-		static final String MEDIA_ID = "media_id";
 		static final String HASH = "hash";
-		static final String SUFFIX = "suffix";
 		
 		static String createTable(){
 			StringBuilder builder = new StringBuilder("DROP TABLE IF EXISTS ").append(TABLE_NAME).append(";");
@@ -60,14 +62,10 @@ public class MyStructuredProvider extends ContentProvider {
 			builder.append(PATH).append(" TEXT,");
 			builder.append(NAME).append(" TEXT,");
 			builder.append(CREATE_DATE).append(" INTEGER,");
-			builder.append(IS_ROOT).append(" INTEGER,");
-			builder.append(IS_DIR).append(" INTEGER,");
 			builder.append(FILE_SIZE).append(" BIGINT,");
 			builder.append(EXT_TYPE).append(" INTEGER,");
-			builder.append(MIME_TYPE).append(" TEXT,");
 			builder.append(MEDIA_ID).append(" INTEGER,");
 			builder.append(HASH).append(" TEXT,");
-			builder.append(SUFFIX).append(" TEXT,");
 			return builder.toString();
 		}
 	}
@@ -98,6 +96,8 @@ public class MyStructuredProvider extends ContentProvider {
 	
 	@Override
 	public boolean onCreate() {
+		Log.i(TAG, "@onCreate ___________  create structure provider");
+		
 		dbHelper = new SQLiteOpenHelperImpl(getContext());
 		return true;
 	}
@@ -124,21 +124,70 @@ public class MyStructuredProvider extends ContentProvider {
 
 	@Override
 	public Uri insert(Uri mUri, ContentValues mContentValues) {
-		return null;
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		Uri resUri = mUri;
+		
+		int match = sUriMatcher.match(mUri);
+		switch(match){
+		case MEDIA :
+			mContentValues.put(MediaContainer.CREATE_DATE, new Date().getTime());
+			long id = db.insert(MediaContainer.TABLE_NAME, "", mContentValues);
+			resUri = ContentUris.withAppendedId(mUri, id);
+			break;
+		}
+		
+		Log.i(TAG, "@insert __ mUri[" + mUri.toString() + "],match[" + match + "],resUri[" + resUri.toString() + "]");
+		
+		return resUri;
 	}
 
 	@Override
 	public Cursor query(Uri mUri, String[] projection, String selection, String[] selectionArgs,String sortOrder) {
-		return null;
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		int match = sUriMatcher.match(mUri);
+		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
+		queryBuilder.setTables(MediaContainer.TABLE_NAME);
+		Cursor resCursor = null;
+		switch(match){
+		case MEDIA :
+			resCursor = queryBuilder.query(db, projection, selection, selectionArgs, null, null, sortOrder);
+			break;
+		}
+		
+		Log.i(TAG, "@query __ mUri[" + mUri.toString() + "],match[" + match + "]");
+		
+		return resCursor;
 	}
 
 	@Override
 	public int update(Uri mUri, ContentValues mContentValues, String selection, String[] selectionArgs) {
-		return 0;
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		int match = sUriMatcher.match(mUri);
+		int count = 0;
+		switch(match){
+		case MEDIA :
+			count = db.update(MediaContainer.TABLE_NAME, mContentValues, selection, selectionArgs);
+			break;
+		}
+		
+		Log.i(TAG, "@update __ mUri[" + mUri.toString() + "],match[" + match + "],count[" + count + "]");
+		
+		return count;
 	}
 
 	@Override
 	public int delete(Uri mUri, String selection, String[] selectionArgs) {
-		return 0;
+		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		int match = sUriMatcher.match(mUri);
+		int count = 0;
+		switch(match){
+		case MEDIA :
+			count = db.delete(MediaContainer.TABLE_NAME, selection, selectionArgs);
+			break;
+		}
+		
+		Log.i(TAG, "@delete __ mUri[" + mUri.toString() + "],match[" + match + "],count[" + count + "]");
+		
+		return count;
 	}
 }

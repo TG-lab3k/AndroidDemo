@@ -69,23 +69,23 @@ public class NavigationAdapter extends BaseAdapter {
 			TextView text = (TextView)mItemView.findViewById(R.id.navigation_title_txtv);
 			text.setText(content.title);
 			
-			mItemView.setTag(new Holder(icon,text));
+			mItemView.setTag(new ViewHolder(icon,text));
 			return mItemView;
 		}
 		
 		public void rebuild(View convertView,int position,AdapterContent [] contents){
-			Holder mHolder = (Holder)convertView.getTag();
+			ViewHolder mHolder = (ViewHolder)convertView.getTag();
 			AdapterContent content = contents[position];
 			mHolder.iconImgv.setImageResource(content.iconID);
 			mHolder.txtv.setText(content.title);
 		}
 	}
 	
-	class Holder{
+	class ViewHolder{
 		ImageView iconImgv;
 		TextView txtv;
 		
-		Holder(ImageView iconImgv,TextView txtv){
+		ViewHolder(ImageView iconImgv,TextView txtv){
 			this.iconImgv = iconImgv;
 			this.txtv = txtv;
 		}
