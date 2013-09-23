@@ -1,1 +1,3 @@
-ListView
+ListView 中几个关注点
+1. position
+2. notifyDataSetChanged
