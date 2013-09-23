@@ -42,23 +42,23 @@ public class MyStructuredProvider extends ContentProvider {
 	}
 	
 	//保存数据的数据表
-	private static class MediaContainer{
+	public static class MediaContainer{
 		private static final String TABLE_NAME = "t_media_container";
 		
-		static final String ID = "id";
-		static final String PARENT_ID = "parent_id";
-		static final String PATH = "path";
-		static final String NAME = "name";
-		static final String CREATE_DATE = "create_at";
-		static final String FILE_SIZE = "file_size";
-		static final String EXT_TYPE = "ext_type";
-		static final String HASH = "hash";
+		public static final Uri CONTENT_URI = new Uri.Builder().scheme("content://").authority(AUTHORITY).path(TABLE_NAME).build();
 		
-		static String createTable(){
+		public static final String ID = "id";
+		public static final String PATH = "path";
+		public static final String NAME = "name";
+		public static final String CREATE_DATE = "create_at";
+		public static final String FILE_SIZE = "file_size";
+		public static final String EXT_TYPE = "ext_type";
+		public static final String HASH = "hash";
+		
+		private static String createTable(){
 			StringBuilder builder = new StringBuilder("DROP TABLE IF EXISTS ").append(TABLE_NAME).append(";");
 			builder.append("CREATE TABLE ").append(TABLE_NAME).append("(");
 			builder.append(ID).append(" INTEGER PRIMARY KEY AUTOINCREMENT,");
-			builder.append(PARENT_ID).append(" INTEGER,");
 			builder.append(PATH).append(" TEXT,");
 			builder.append(NAME).append(" TEXT,");
 			builder.append(CREATE_DATE).append(" INTEGER,");

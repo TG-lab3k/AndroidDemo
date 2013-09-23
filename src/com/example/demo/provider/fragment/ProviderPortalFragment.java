@@ -42,6 +42,10 @@ public class ProviderPortalFragment extends Fragment {
 			Log.d(TAG, "@onItemSelected: id:" + id + ",position:" + position + ", itemValue:" + itemValue);
 			
 			
+			switch(position){
+			case 1 :
+				break;
+			}
 		}
 		
 		@Override

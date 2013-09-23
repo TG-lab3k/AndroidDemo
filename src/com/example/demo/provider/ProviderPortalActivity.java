@@ -1,13 +1,15 @@
 package com.example.demo.provider;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
 import com.example.demo.BasicActivity;
+import com.example.demo.OnFragmentSwitchedListener;
 import com.example.demo.R;
 import com.example.demo.provider.fragment.ProviderPortalFragment;
 
-public class ProviderPortalActivity extends BasicActivity {
+public class ProviderPortalActivity extends BasicActivity implements OnFragmentSwitchedListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,5 +28,13 @@ public class ProviderPortalActivity extends BasicActivity {
 		
 		//fm.beginTransaction().add(R.id.fragment_container, new UserDictionaryFragment(), "fragment_user_dictionary").commit();
 		fm.beginTransaction().add(R.id.fragment_container, new ProviderPortalFragment(), "fragment_portal").commit();
+	
+		//android.R.id.content
+		//fm.beginTransaction().add(android.R.id.content, new ProviderPortalFragment(), "fragment_portal").commit();
+	}
+	
+	@Override
+	public void onSwitch(Intent intent) {
+		//intent
 	}
 }
