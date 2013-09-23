@@ -13,4 +13,6 @@
         <item name="1002">to custom structured provider</item>
         <item name="1003">to user dictinoary provider</item>
     </string-array>
+    
+    <string name="adapter_list_view_title">list view study</string>
 </resources>

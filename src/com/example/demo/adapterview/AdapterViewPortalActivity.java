@@ -13,8 +13,10 @@
 package com.example.demo.adapterview;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 
 import com.example.demo.BasicActivity;
+import com.example.demo.R;
 
 /**
  * 本类为研究AdapterVie特性的入口程序
@@ -27,6 +29,9 @@ public class AdapterViewPortalActivity extends BasicActivity {
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
+		setContentView(R.layout.adapter_portal);
 		
+		FragmentManager fm = this.getSupportFragmentManager();
+		fm.beginTransaction().add(R.id.tab1, new ListViewFragment(), "fragment_listview").commit();
 	}
 }
