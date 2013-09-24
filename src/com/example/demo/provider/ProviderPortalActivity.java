@@ -3,6 +3,7 @@ package com.example.demo.provider;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.example.demo.BasicActivity;
 import com.example.demo.OnFragmentSwitchedListener;
@@ -31,10 +32,13 @@ public class ProviderPortalActivity extends BasicActivity implements OnFragmentS
 	
 		//android.R.id.content
 		//fm.beginTransaction().add(android.R.id.content, new ProviderPortalFragment(), "fragment_portal").commit();
+		
+		
 	}
 	
 	@Override
 	public void onSwitch(Intent intent) {
-		//intent
+		FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
+		//transaction
 	}
 }
