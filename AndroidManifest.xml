@@ -53,6 +53,8 @@
         </service>
         
         <!-- provider -->
+        
+        <!-- 给第三方APP提供数据接口，使用provider全局permission和path permission相结合 -->
         <provider android:name="com.example.demo.provider.StructuredProvider" 
             android:authorities="com.example.demo.provider.structuredProvider"
             android:exported="true"
