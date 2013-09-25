@@ -9,6 +9,10 @@
         android:targetSdkVersion="17" />
     
     <uses-permission android:name="android.permission.READ_USER_DICTIONARY"/>
+    
+    <permission android:name="com.tony.provider.permission.READ_STRUCTURED_PROVIDER" android:protectionLevel="normal"/>
+    <permission android:name="com.tony.provider.permission.WRITE_STRUCTURED_PROVIDER" android:protectionLevel="normal"/>
+    <permission android:name="com.tony.provider.permission.READ_STRUCTURED_PROVIDER_ITEM"/>
 
     <application
         android:name="com.example.demo.DemoApplication"
@@ -49,13 +53,24 @@
         </service>
         
         <!-- provider -->
-        <provider android:name="com.example.demo.provider.MyStructuredProvider" 
+        <provider android:name="com.example.demo.provider.StructuredProvider" 
             android:authorities="com.example.demo.provider.structuredProvider"
-            android:exported="true">   
-               
+            android:exported="true"
+            android:grantUriPermissions="true"
+            android:readPermission="com.tony.provider.permission.READ_STRUCTURED_PROVIDER"
+            android:writePermission="com.tony.provider.permission.WRITE_STRUCTURED_PROVIDER">   
+               <!-- 
+            <path-permission android:path="" 
+                android:readPermission=""/>
+            <grant-uri-permission android:path=""/>
+            <meta-data android:name="" android:value="" android:resource=""/>
+             -->
+             
+             <path-permission android:path="content://com.example.demo.provider.structuredProvider/t_media_container/#" 
+                 android:readPermission="com.tony.provider.permission.READ_STRUCTURED_PROVIDER_ITEM"/>
         </provider>
         
-        <provider android:name="com.example.demo.provider.MyMediaProvider" 
+        <provider android:name="com.example.demo.provider.MediaProvider" 
             android:authorities="com.example.demo.provider.mediaProvider"
             android:exported="true">      
         </provider>

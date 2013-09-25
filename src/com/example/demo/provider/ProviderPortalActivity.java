@@ -1,6 +1,5 @@
 package com.example.demo.provider;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,11 +10,14 @@ import com.example.demo.R;
 import com.example.demo.provider.fragment.ProviderPortalFragment;
 
 public class ProviderPortalActivity extends BasicActivity implements OnFragmentSwitchedListener{
+	
+	private int containerID;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.provider_portal_layout);
+		containerID = R.id.fragment_container;
 		
 		//ContentResolver mContentResolver = this.getContentResolver();
 		
@@ -28,17 +30,17 @@ public class ProviderPortalActivity extends BasicActivity implements OnFragmentS
 		//fTransaction.commit();
 		
 		//fm.beginTransaction().add(R.id.fragment_container, new UserDictionaryFragment(), "fragment_user_dictionary").commit();
-		fm.beginTransaction().add(R.id.fragment_container, new ProviderPortalFragment(), "fragment_portal").commit();
+		fm.beginTransaction().add(containerID, new ProviderPortalFragment(), "fragment_portal").commit();
 	
 		//android.R.id.content
 		//fm.beginTransaction().add(android.R.id.content, new ProviderPortalFragment(), "fragment_portal").commit();
-		
-		
 	}
 	
 	@Override
-	public void onSwitch(Intent intent) {
+	public void onSwitch(SwitchedIntent intent) {
 		FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
-		//transaction
+		transaction.replace(containerID, intent.fragment, intent.tag);
+		transaction.addToBackStack("fragment_portal");
+		transaction.commit();
 	}
 }

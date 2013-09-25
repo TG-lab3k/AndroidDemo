@@ -27,7 +27,17 @@ import com.example.demo.provider.UserDictionaryCursorAdapter;
 public class UserDictionaryFragment extends Fragment {
 	private static final String TAG = UserDictionaryFragment.class.getName();
 	
+	private static Fragment fragment;
+	
 	ListView content;
+	
+	
+	public static Fragment instance(){
+		if(null == fragment){
+			fragment = new UserDictionaryFragment();
+		}
+		return fragment;
+	}
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -51,6 +61,13 @@ public class UserDictionaryFragment extends Fragment {
 		Button toContactsBtn = (Button) contentView.findViewById(R.id.provider_to_contacts_btn);
 		toContactsBtn.setOnClickListener(toContactsOnClickListener);
 		return contentView;
+	}
+	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		
+		fragment = null;
 	}
 	
 	private OnClickListener sctBtnOnClickListener = new OnClickListener(){

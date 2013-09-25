@@ -12,7 +12,7 @@ import android.net.Uri;
  * @author tony.lei
  *
  */
-public class MyMediaProvider extends ContentProvider {
+public class MediaProvider extends ContentProvider {
 
 	/* (non-Javadoc)
 	 * @see android.content.ContentProvider#delete(android.net.Uri, java.lang.String, java.lang.String[])

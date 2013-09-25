@@ -4,7 +4,6 @@
 package com.example.demo.provider.fragment;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.example.demo.OnFragmentSwitchedListener;
+import com.example.demo.OnFragmentSwitchedListener.SwitchedIntent;
 import com.example.demo.R;
 
 /**
@@ -24,7 +24,7 @@ import com.example.demo.R;
  *
  */
 public class ProviderPortalFragment extends Fragment {
-	private static final String TAG = UserDictionaryFragment.class.getName();
+	private static final String TAG = ProviderPortalFragment.class.getName();
 	
 	private OnFragmentSwitchedListener switchedListener;
 	
@@ -54,12 +54,21 @@ public class ProviderPortalFragment extends Fragment {
 			Log.d(TAG, "@onItemSelected: id:" + id + ",position:" + position + ", itemValue:" + itemValue);
 			
 			
-			Intent intent = null;
+			SwitchedIntent intent = null;
 			switch(position){
 			case 1 :
+				intent = new SwitchedIntent(StructuredProviderClientFragment.instance(),"structure");
 				break;
+			
+			case 2 :
+				intent = new SwitchedIntent(UserDictionaryFragment.instance(),"user_dictionary");
+				break;
+				
+			default :
+				return;
 			}
 			
+			((Spinner)mParent).setSelection(0);
 			switchedListener.onSwitch(intent);
 		}
 		
