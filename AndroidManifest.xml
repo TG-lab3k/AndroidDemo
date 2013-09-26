@@ -77,6 +77,10 @@
             android:exported="true">      
         </provider>
         
+        <provider android:name="com.example.demo.provider.TemporaryPermissionProvider"
+            android:authorities="com.example.demo.provider.temporaryPermissionProvider">
+            
+        </provider>
     </application>
 
 </manifest>

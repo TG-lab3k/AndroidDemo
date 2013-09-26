@@ -3,6 +3,7 @@ package com.example.demo.provider;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
+import com.example.demo.provider.ProviderContract.MediaContainer;
 import com.example.demo.util.StringUtil;
 
 import android.content.ContentProvider;
@@ -39,6 +40,11 @@ import android.util.Log;
  * 2. 控制表级别
  * 3. 控制行级别
  * 
+ * 
+ * 在Provider中
+ * 无论ProviderClient是在本APP还是第三方APP，onCreate()方法都是被main线程调用
+ * 
+ * insert,update,delete,query等方法如果是被本APP请求，在main线程中，如果是被第三方APP请求，则在binder线程中
  * @author tony.lei
  *
  */
@@ -55,32 +61,8 @@ public class StructuredProvider extends ContentProvider {
 	private static final UriMatcher sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
 	static{
-		sUriMatcher.addURI(StructuredContract.AUTHORITY, StructuredContract.TABLE_NAME, MEDIA);
-		sUriMatcher.addURI(StructuredContract.AUTHORITY, StructuredContract.TABLE_NAME+"/#", MEDIA_ID);
-	}
-	
-	//保存数据的数据表
-	public static class MediaContainer{
-		
-		public static final String ID = "_id";
-		public static final String PATH = "path";
-		public static final String NAME = "name";
-		public static final String CREATE_DATE = "create_at";
-		public static final String FILE_SIZE = "file_size";
-		public static final String EXT_TYPE = "ext_type";
-		public static final String HASH = "hash";
-		
-		private static String createTable(){
-			StringBuilder builder = new StringBuilder("CREATE TABLE ").append(StructuredContract.TABLE_NAME).append("(");
-			builder.append(ID).append(" INTEGER PRIMARY KEY AUTOINCREMENT, ");
-			builder.append(PATH).append(" TEXT, ");
-			builder.append(NAME).append(" TEXT, ");
-			builder.append(CREATE_DATE).append(" INTEGER, ");
-			builder.append(FILE_SIZE).append(" BIGINT, ");
-			builder.append(EXT_TYPE).append(" INTEGER, ");
-			builder.append(HASH).append(" TEXT);");
-			return builder.toString();
-		}
+		sUriMatcher.addURI(ProviderContract.AUTHORITY, ProviderContract.TABLE_NAME, MEDIA);
+		sUriMatcher.addURI(ProviderContract.AUTHORITY, ProviderContract.TABLE_NAME+"/#", MEDIA_ID);
 	}
 	
 	//SQLite
@@ -95,7 +77,7 @@ public class StructuredProvider extends ContentProvider {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			//db.beginTransaction();
-			db.execSQL("DROP TABLE IF EXISTS " + StructuredContract.TABLE_NAME);
+			db.execSQL("DROP TABLE IF EXISTS " + ProviderContract.TABLE_NAME);
 			String createTable = MediaContainer.createTable();
 			
 			Log.i(TAG, "@SQLiteOpenHelperImpl.onCreate: create table[" + createTable + "], CurrentThread's Name:" + Thread.currentThread().getName());
@@ -108,7 +90,7 @@ public class StructuredProvider extends ContentProvider {
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {	
 			//db.beginTransaction();
-			db.execSQL("DROP TABLE IF EXISTS " + StructuredContract.TABLE_NAME);
+			db.execSQL("DROP TABLE IF EXISTS " + ProviderContract.TABLE_NAME);
 			String createTable = MediaContainer.createTable();
 			db.execSQL(createTable);
 			
@@ -135,17 +117,20 @@ public class StructuredProvider extends ContentProvider {
 		int match = sUriMatcher.match(mUri);
 		switch(match){
 		case MEDIA :
-			mType = StructuredContract.TYPE_MEDIA;
+			mType = ProviderContract.TYPE_MEDIA;
 			break;
 			
 		case MEDIA_ID :
-			mType = StructuredContract.TYPE_MEDIA_ID;
+			mType = ProviderContract.TYPE_MEDIA_ID;
 			break;
 		
 		default :
 			mType = null;
 			break;
 		}
+		
+		Log.i(TAG, "@getType __ mUri[" + mUri.toString() + "],match[" + match + "],mType[" + mType + "], CurrentThread's Name:" + Thread.currentThread().getName());
+		
 		return mType;
 	}
 	
@@ -168,7 +153,7 @@ public class StructuredProvider extends ContentProvider {
 			} catch (NoSuchAlgorithmException e) {
 				mContentValues.put(MediaContainer.HASH, "");
 			}
-			long id = db.insert(StructuredContract.TABLE_NAME, "", mContentValues);
+			long id = db.insert(ProviderContract.TABLE_NAME, "", mContentValues);
 			resUri = ContentUris.withAppendedId(mUri, id);
 			break;
 		}
@@ -184,7 +169,7 @@ public class StructuredProvider extends ContentProvider {
 		SQLiteDatabase db = dbHelper.getReadableDatabase();
 		int match = sUriMatcher.match(mUri);
 		SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-		queryBuilder.setTables(StructuredContract.TABLE_NAME);
+		queryBuilder.setTables(ProviderContract.TABLE_NAME);
 		Cursor resCursor = null;
 		switch(match){
 		case MEDIA :
@@ -205,7 +190,7 @@ public class StructuredProvider extends ContentProvider {
 		int count = 0;
 		switch(match){
 		case MEDIA :
-			count = db.update(StructuredContract.TABLE_NAME, mContentValues, selection, selectionArgs);
+			count = db.update(ProviderContract.TABLE_NAME, mContentValues, selection, selectionArgs);
 			break;
 		}
 		
@@ -221,7 +206,7 @@ public class StructuredProvider extends ContentProvider {
 		int count = 0;
 		switch(match){
 		case MEDIA :
-			count = db.delete(StructuredContract.TABLE_NAME, selection, selectionArgs);
+			count = db.delete(ProviderContract.TABLE_NAME, selection, selectionArgs);
 			break;
 		}
 		

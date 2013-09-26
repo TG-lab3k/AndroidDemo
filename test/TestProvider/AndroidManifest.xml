@@ -7,6 +7,11 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="17" />
+    
+    
+    <!-- 不添加此权限无法访问Structured Provider，Structured Provider抛出SecurityException -->
+    <uses-permission android:name="com.tony.provider.permission.READ_STRUCTURED_PROVIDER"/>
+    <uses-permission android:name="com.tony.provider.permission.WRITE_STRUCTURED_PROVIDER"/>
 
     <application
         android:allowBackup="true"

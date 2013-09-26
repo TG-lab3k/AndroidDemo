@@ -21,8 +21,8 @@ import android.widget.RelativeLayout;
 
 import com.example.demo.R;
 import com.example.demo.provider.StructureCursorAdapter;
-import com.example.demo.provider.StructuredContract;
-import com.example.demo.provider.StructuredProvider.MediaContainer;
+import com.example.demo.provider.ProviderContract;
+import com.example.demo.provider.ProviderContract.MediaContainer;
 
 /**
  * MyStructuredProvider client
@@ -61,7 +61,7 @@ public class StructuredProviderClientFragment extends Fragment {
 		
 		//StructureCursorAdapter
 		ListView listView = (ListView)fragmentView.findViewById(R.id.listView1);
-		Cursor cursor = getActivity().getContentResolver().query(StructuredContract.CONTENT_URI, null, null, null, null);
+		Cursor cursor = getActivity().getContentResolver().query(ProviderContract.CONTENT_URI, null, null, null, null);
 		structureCursorAdapter = new StructureCursorAdapter(getActivity().getApplicationContext(),cursor,false);
 		listView.setAdapter(structureCursorAdapter);
 		return fragmentView;
@@ -81,11 +81,11 @@ public class StructuredProviderClientFragment extends Fragment {
 			values.put(MediaContainer.FILE_SIZE, holderView.fileSizeEditText.getText().toString());
 			values.put(MediaContainer.EXT_TYPE, holderView.extTypeEditText.getText().toString());
 			
-			Uri resultUri = contentResolver.insert(StructuredContract.CONTENT_URI, values);
+			Uri resultUri = contentResolver.insert(ProviderContract.CONTENT_URI, values);
 			
 			Log.i(TAG, "@saveBtnClickListener.onClick: resultUri:" + resultUri.toString());
 			
-			Cursor cursor = contentResolver.query(StructuredContract.CONTENT_URI, null, null, null, null);
+			Cursor cursor = contentResolver.query(ProviderContract.CONTENT_URI, null, null, null, null);
 			structureCursorAdapter.swapCursor(cursor);
 			structureCursorAdapter.notifyDataSetChanged();
 		}

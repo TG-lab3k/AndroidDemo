@@ -7,12 +7,14 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 /**
  * @author tony.lei
  *
  */
 public class MediaProvider extends ContentProvider {
+	private static final String TAG = MediaProvider.class.getName();
 
 	/* (non-Javadoc)
 	 * @see android.content.ContentProvider#delete(android.net.Uri, java.lang.String, java.lang.String[])
@@ -46,8 +48,8 @@ public class MediaProvider extends ContentProvider {
 	 */
 	@Override
 	public boolean onCreate() {
-		// TODO Auto-generated method stub
-		return false;
+		Log.i(TAG, "@onCreate __ create media provider ..");
+		return true;
 	}
 
 	/* (non-Javadoc)
