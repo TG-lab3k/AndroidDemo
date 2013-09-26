@@ -1,0 +1,15 @@
+Provider启动
+
+onCreate
+Implement this to initialize your content provider on startup. 
+This method is called for all registered content providers on the application main thread at application launch time. 
+It must not perform lengthy operations, or application startup will be delayed.
+
+在APP launch的时候会将APP中所有注册的Provider创建并初始化
+
+
+Provider执行
+
+
+Provider权限
+a。   临时权限
