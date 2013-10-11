@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <CheckBoxPreference 
+        android:title="@string/preference_onoff_del_old_msg"
+        android:key="del_old_msg"
+        android:summary="@string/pref_del_oldmsg_summ"
+        android:defaultValue="true"/>
+    
+    
+    <ListPreference />
+    <EditTextPreference />
+    <SwitchPreference />
+    
+
+</PreferenceScreen>

@@ -15,4 +15,10 @@
     </string-array>
     
     <string name="adapter_list_view_title">list view study</string>
+    
+    <!-- settings -->
+    <string name="preference_setting_title">setting of demo</string>
+    
+    <string name="preference_onoff_del_old_msg">delete old message</string>
+    <string name="pref_del_oldmsg_summ">delete old message as limits are reached</string>
 </resources>
